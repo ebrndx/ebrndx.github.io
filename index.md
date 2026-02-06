@@ -5,7 +5,9 @@ subtitle: Data/Analytics Engineer | BI & Marketing Analytics
 hero-bg-color: "#555555"
 ---
 
-Especializado em construir **pipelines de dados, modelagem, automação e observabilidade** para operações de mídia digital e analytics.
+Oi, eu sou o Eduardo.
+
+Sou especializado em construir **pipelines de dados, modelagem, automação e observabilidade** para operações de mídia digital e analytics.
 
 14+ anos de experiência construindo soluções end-to-end: da coleta e integração de dados até dashboards operacionais, com governança e qualidade.
 
