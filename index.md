@@ -2,10 +2,10 @@
 layout: home
 title: Eduardo Bernardo
 subtitle: Data/Analytics Engineer | BI & Marketing Analytics
-cover-img: 
-  - "/assets/img/header-1.jpg" : "Dados"
-  - "/assets/img/header-2.jpg" : "Analytics"
-  - "/assets/img/header-3.jpg" : "Automação"
+# cover-img:
+#   - "/assets/img/header-1.jpg" : "Dados"
+#   - "/assets/img/header-2.jpg" : "Analytics"
+#   - "/assets/img/header-3.jpg" : "Automação"
 ---
 
 Especializado em construir **pipelines de dados, modelagem, automação e observabilidade** para operações de mídia digital e analytics.
