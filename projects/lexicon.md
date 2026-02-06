@@ -1,24 +1,19 @@
 ---
+layout: default
 title: "Lexicon: Plataforma de Governança de Taxonomia"
-layout: single
-permalink: /projects/lexicon/
-header:
-  overlay_color: "#000"
-  overlay_filter: "0.5"
-  overlay_image: /assets/images/lexicon-banner.jpg
-excerpt: "Plataforma low-code que reduziu erros de taxonomia em 85% e eliminou dependência de planilhas compartilhadas"
-tags:
-  - Power Platform
-  - BigQuery
-  - Governança
-  - Automação
 ---
+
+**Navegação:** [Home](/) | [Projetos](/projects/) | [Sobre](/about/) | [Contato](/contact/)
+
+---
+
+# Lexicon: Plataforma de Governança de Taxonomia
 
 ## Visão Geral
 
 **Problema:** Times de mídia perdiam horas corrigindo erros de nomenclatura de campanhas. Planilhas compartilhadas geravam inconsistências, duplicatas e retrabalho constante no BI.
 
-**Solução:** Plataforma de governança com validação na origem, fluxos automatizados de aprovação e exportação canônica para análise.
+**Solução:** Plataforma de governança com validação na origem, fluxos automatizados de aprovação e registro canônico em SharePoint.
 
 **Impacto:**
 - 85% de redução em erros de taxonomia
@@ -27,7 +22,7 @@ tags:
 - Fonte única de verdade para 50+ usuários
 
 **Stack:**
-Power Apps · Power Automate · SharePoint Lists · Teams · BigQuery · Looker Studio
+Power Apps · Power Automate · SharePoint Lists · Microsoft Teams
 
 ---
 
@@ -44,84 +39,68 @@ Em operações de mídia digital com múltiplos clientes, frentes e canais, a pa
 - Impossível rastrear quem mudou o quê e quando
 
 **Dor real:**
-> "Quinta-feira, 18h: descobrimos que 2 semanas de dados estavam errados porque alguém digitou 'Meta' em vez de 'facebook'. Perdemos o final de semana corrigindo."
+> "Quinta-feira, 18h: descobrimos que 2 semanas de dados estavam errados porque alguém digitou 'Meta' em vez de 'meta'. Perdemos o final de semana corrigindo."
 
 **Por que não escalava:**
 - Google Sheets tem limite de 5M células (atingido mensalmente)
 - Sem validação em tempo real
 - Sem controle de concorrência
 - Sem trilha de auditoria estruturada
-- Integração frágil com BI (importação manual ou scripts quebradiços)
+- Múltiplas versões conflitantes da "verdade"
 
 ---
 
 ## A Solução
 
 ### Arquitetura de Alto Nível
-
-[DIAGRAMA 1: Fluxo completo do Lexicon]
 ```
-┌─────────────┐
-│ Power Apps  │  Validação UX + regras de preenchimento
-└──────┬──────┘
-       │
-       ▼
-┌─────────────┐
-│Power Automate│ Orquestração + validação + deduplicação
-└──────┬──────┘
-       │
-       ├──────────────┐
-       ▼              ▼
-┌─────────────┐  ┌─────────┐
-│ SharePoint  │  │  Teams  │  Aprovações + notificações
-│   Lists     │  └─────────┘
-└──────┬──────┘
-       │
-       ▼
-┌─────────────┐
-│  BigQuery   │  Camada analítica (current + history)
-└──────┬──────┘
-       │
-       ▼
-┌─────────────┐
-│Looker Studio│  Consumo + dashboards de governança
-└─────────────┘
+Power Apps (validação UX + interface)
+    ↓
+Power Automate (orquestração + regras + validação)
+    ↓
+SharePoint Lists (armazenamento + versionamento)
+    ↓
+Teams (aprovações via Adaptive Cards + notificações)
 ```
 
 ### Decisões de Arquitetura
 
 **1. Por que Power Platform em vez de app custom?**
 
-✅ Prós da escolha:
+Prós da escolha:
 - Time de negócio já usava Microsoft 365
 - Integração nativa com Teams (aprovações já aconteciam lá)
 - Low-code permitiu iteração rápida com feedback do usuário
 - Menor custo de manutenção
+- Deploy rápido sem envolver time de engenharia
 
-❌ Trade-offs aceitos:
+Trade-offs aceitos:
 - Menos flexibilidade que código puro
 - Limite de 500 chamadas/dia por fluxo (contornado com paralelização)
+- Dependência do ecossistema Microsoft
 
-**2. Por que SharePoint Lists como staging?**
+**2. Por que SharePoint Lists como repositório?**
 
-✅ Prós:
+Prós:
 - Permissões integradas com Azure AD
-- Auditoria nativa (created_by, modified_by)
-- API REST confiável para exportação
-- Versionamento de itens (history log)
+- Auditoria nativa (created_by, modified_by, modified_at)
+- Versionamento automático de itens
+- API REST para integrações futuras
+- Backup e disaster recovery gerenciados
 
-❌ Trade-offs:
+Trade-offs:
 - Limite de 30M itens por lista (não foi problema na escala atual)
 - Performance degrada acima de 5k itens (resolvido com arquivamento mensal)
+- Menos flexível que banco de dados relacional
 
-**3. Por que BigQuery como destino final?**
+**3. Por que Teams para aprovações?**
 
-✅ BigQuery virou a fonte única de verdade porque:
-- BI já consumia de lá
-- Escala ilimitada
-- Query rápida com particionamento
-- Versionamento por tabela (current vs history)
-- Integração com Looker Studio sem latência
+Teams como canal de aprovação porque:
+- Time já operava 100% no Teams
+- Adaptive Cards oferecem UX rica sem sair do contexto
+- Notificações instantâneas
+- Histórico de conversas associado ao registro
+- Zero fricção de adoção
 
 ---
 
@@ -147,17 +126,9 @@ cliente_veiculo_frente_estrategia_objetivo_produto_pilar_target_ps_dataVersao
 **Resultado:**
 - Idempotência: reenvio não duplica
 - Deduplicação automática
-- Join confiável entre sistemas
-
-**Exemplo genérico:**
-```
-Input:  Cliente A | Meta | Frente X | ...
-Output: clientea_meta_frentex_..._v1
-```
+- Join confiável com sistemas externos
 
 ### 2. Fluxos Principais (Power Automate)
-
-[DIAGRAMA 2: Mapa de fluxos e triggers]
 
 **A. Save and Export**
 - Trigger: Submit no Power Apps
@@ -165,21 +136,21 @@ Output: clientea_meta_frentex_..._v1
 - Geração de chave canônica
 - Busca de duplicata (por chave)
 - Decisão: inserir novo ou retornar existente
-- Export para BigQuery
+- Gravação no SharePoint
 - Retorno de status para o usuário
 
 **B. History Save Export**
 - Trigger: Update em registro base
 - Captura estado anterior e novo
 - Cálculo de diff (campos alterados)
-- Gravação em tabela de auditoria
+- Gravação em lista de auditoria (history)
 - Incremento de versão
-- Sincronização com BigQuery (current + history)
+- Atualização do registro current
 
 **C. Duplicate Response**
 - Trigger: Tentativa de cadastro duplicado
 - Retorna registro canônico existente
-- Alerta usuário com link do original
+- Alerta usuário com link do original no SharePoint
 - Registra tentativa para análise de padrões
 
 **D. Graveyard Purge**
@@ -192,87 +163,67 @@ Output: clientea_meta_frentex_..._v1
 
 **Camada 1: Power Apps (tempo real)**
 - Campos obrigatórios visuais
-- Dropdowns de valores permitidos
-- Validação de formato (datas, emails)
-- Presets e templates (reduz digitação)
+- Dropdowns de valores permitidos (listas mestres)
+- Validação de formato (datas, padrões)
+- Presets e templates (reduz digitação e erro)
 
 **Camada 2: Power Automate (pré-persistência)**
 - Regras de negócio complexas
-- Deduplicação por chave
+- Deduplicação por chave canônica
 - Validação cruzada entre campos
-- Normalização final
+- Normalização final antes de gravar
 
 **Por que duas camadas?**
 - UX: erro cedo é melhor que erro tarde
-- Segurança: usuário pode bypassar frontend (API direta)
+- Segurança: usuário pode bypassar frontend (chamada direta à API)
 - Auditoria: log de tentativas inválidas para análise
 
 ### 4. Aprovações no Teams
-
-[DIAGRAMA 3: Fluxo de aprovação com Adaptive Card]
 
 **Trigger:** Registro criado/editado por usuário sem permissão total
 
 **Adaptive Card contém:**
 - Resumo do registro (campos principais)
-- Diff visual (se for edição)
+- Diff visual (se for edição - campos alterados destacados)
 - Botões: Aprovar / Rejeitar / Solicitar ajuste
 - Campo de comentário obrigatório
 
 **Após decisão:**
 - Registro atualizado com status, aprovador, timestamp
-- Notificação ao solicitante
-- Event log gravado no history
-- Sincronização com BigQuery
+- Notificação ao solicitante (Teams + email)
+- Event log gravado na lista de history
+- Thread do Teams linkada ao registro
 
 **Timeout:** 48h sem resposta → escala para owner do processo
 
-### 5. Export para BigQuery
+### 5. Estrutura no SharePoint
 
-**Estrutura de Tabelas:**
+**Lista: lexicon_current** (estado canônico)
+- ID (auto)
+- canonical_key (indexed, unique)
+- cliente, veiculo, frente, estrategia, objetivo, produto, pilar, target, data_versao
+- version (número inteiro)
+- status (rascunho, aprovado, rejeitado, obsoleto)
+- created, created_by
+- modified, modified_by
+- approval_status, approval_date, approval_by
+- comments (texto longo)
 
-**lexicon_current** (estado canônico):
-```sql
--- Schema simplificado (campos de exemplo)
-canonical_key STRING PRIMARY KEY
-cliente STRING
-veiculo STRING
-frente STRING
-estrategia STRING
-... (demais dimensões)
-version INT64
-created_at TIMESTAMP
-updated_at TIMESTAMP
-created_by STRING
-updated_by STRING
-approval_status STRING
-approval_at TIMESTAMP
-approval_by STRING
-source STRING (sempre 'lexicon')
-```
+**Lista: lexicon_history** (auditoria)
+- ID (auto)
+- canonical_key (indexed)
+- event_type (create, update, approve, reject, archive)
+- changed_fields (múltiplas linhas de texto)
+- change_reason
+- event_date, event_user
+- link_to_current (lookup)
 
-**lexicon_history** (auditoria):
-```sql
--- Mesmos campos + metadados de mudança
-event_id STRING PRIMARY KEY
-canonical_key STRING
-event_type STRING (create|update|approve|reject)
-changed_fields ARRAY<STRING>
-change_reason STRING
-event_timestamp TIMESTAMP
-event_user STRING
-```
-
-**Particionamento:**
-- current: sem partição (sempre 1 linha por chave)
-- history: PARTITION BY DATE(event_timestamp)
-
-**Cluster:**
-- CLUSTER BY frente, veiculo, estrategia (padrão de consulta)
-
-**Sincronização:**
-- Incremental por evento (Power Automate → BigQuery API)
-- Fallback: full refresh diário (recuperação de falhas)
+**Listas auxiliares:**
+- Clientes (lista mestre)
+- Veículos (lista mestre)
+- Frentes (lista mestre)
+- Estratégias (lista mestre)
+- Presets (templates pré-configurados)
 
 ---
 
@@ -283,19 +234,20 @@ event_user STRING
 **Problema:** 2 usuários criando registro idêntico ao mesmo tempo.
 
 **Solução:**
-- Request ID único por tentativa
+- Request ID único por tentativa (GUID)
 - Lock otimista: checagem de duplicata com timestamp
 - Retry com backoff exponencial
-- Último check antes do commit
+- Último check antes do commit no SharePoint
 
 ### 2. Late Arrivals e Dados Retroativos
 
-**Problema:** Usuário corrige registro de semana passada, como refletir no BI?
+**Problema:** Usuário corrige registro de semana passada, como rastrear?
 
 **Solução:**
-- Lookback window de 7 dias nas queries Gold
-- Recálculo automático de agregações afetadas
-- Flag de "dado atualizado retroativamente" no dashboard
+- Versionamento automático no SharePoint
+- Lista de history captura TODAS as mudanças
+- Flag de "atualizado retroativamente" visível no registro
+- Notificação no Teams quando registro antigo é alterado
 
 ### 3. Limite de 500 Chamadas/Dia por Fluxo
 
@@ -303,8 +255,19 @@ event_user STRING
 
 **Solução:**
 - Paralelização: 1 fluxo por tipo de operação
-- Batch de exports para BigQuery (a cada 15 min em vez de tempo real)
 - Child flows para operações repetitivas
+- Batch de notificações (agrupa em vez de enviar 1 por 1)
+- Otimização de loops (usar "Apply to each" com filtros)
+
+### 4. Performance em Listas Grandes
+
+**Problema:** SharePoint degrada com muitos itens.
+
+**Solução:**
+- Índices em canonical_key, status e modified
+- Arquivamento mensal de registros antigos
+- Views filtradas por default (só registros ativos)
+- Paginação no Power Apps (lazy loading)
 
 ---
 
@@ -332,48 +295,67 @@ event_user STRING
 | Taxa de aprovação primeiro envio | 45% | 92% |
 | Registros duplicados/mês | ~80 | <5 |
 
-### Impacto no BI
+### Impacto em Qualidade de Dados
 
-**Qualidade de Dados:**
-- Campos nulos: de 12% para <1%
-- Inconsistências de nomenclatura: de 200+ variações para 0
-- Confiabilidade de joins: 100% (chave determinística)
+**Campos vazios ou incorretos:**
+- Antes: 12% de registros com problema
+- Depois: <1%
+
+**Inconsistências de nomenclatura:**
+- Antes: 200+ variações do mesmo conceito
+- Depois: 0 (listas mestres + validação)
+
+**Confiabilidade:**
+- Chave canônica determinística = 100% de confiabilidade em joins
+- Versionamento completo = rastreabilidade total
+
+### Impacto Operacional
 
 **Produtividade:**
 - Horas economizadas/mês: ~120h
 - Retrabalho evitado: ~R$ 15k/mês (estimativa)
+- Onboarding de novos analistas: de 2 semanas para 3 dias
+
+**Governança:**
+- 100% dos registros com dono identificado
+- 100% das mudanças rastreadas (quem, quando, por quê)
+- 0 versões conflitantes
 
 ---
 
 ## Observabilidade e Governança
 
-### Dashboard de Qualidade (Looker Studio)
+### Monitoramento via SharePoint Views
 
-**Métricas monitoradas:**
-- Taxa de aprovação por usuário/frente
-- Tempo médio de aprovação
-- Tentativas de duplicação (padrões)
-- Uso de presets vs preenchimento manual
-- Campos com maior taxa de erro
+**Views customizadas criadas:**
+- Registros pendentes de aprovação
+- Registros editados nos últimos 7 dias
+- Top usuários criadores
+- Taxa de rejeição por usuário
+- Registros obsoletos (candidatos a arquivo)
 
-**Alertas no Teams:**
-- Resumo semanal de métricas
+### Alertas no Teams
+
+**Configurados via Power Automate:**
+- Resumo semanal de métricas (envio automático segunda 9h)
 - Spike de rejeições (>10% acima da média)
-- Duplicatas frequentes (mesmo usuário/chave)
-- Timeout de aprovações (>48h)
+- Duplicatas frequentes (mesmo usuário tentando 3+ vezes)
+- Timeout de aprovações (>48h sem resposta)
+- Registro crítico alterado (flag de impacto alto)
 
 ### Auditoria Completa
 
 Cada ação registrada com:
-- Quem (usuário)
-- Quando (timestamp com timezone)
+- Quem (usuário do Azure AD)
+- Quando (timestamp com timezone São Paulo)
 - O quê (campos alterados com diff)
 - Por quê (motivo quando aplicável)
-- Onde (origem: app, API, import)
+- Onde (origem: Power Apps, API, import)
 
 **Retenção:**
 - Current: sempre disponível
-- History: 24 meses em hot storage, 60 meses em cold storage
+- History: mantido indefinidamente (baixo volume)
+- Logs de fluxo: 28 dias (padrão Power Automate)
 
 ---
 
@@ -384,65 +366,81 @@ Cada ação registrada com:
 1. **Validação dupla (UX + backend)**
    - Reduziu fricção (usuário corrige cedo)
    - Manteve segurança (não confia no frontend)
+   - 92% de aprovação no primeiro envio
 
 2. **Chave canônica determinística**
    - Resolveu 90% dos problemas de duplicata
    - Permitiu idempotência natural
+   - Base para integrações futuras
 
 3. **Aprovações via Teams**
    - Zero fricção de adoção (time já vivia no Teams)
    - Adaptive Cards são visualmente claras
+   - Histórico de decisões no contexto
 
-4. **BigQuery como destino final**
-   - Eliminou necessidade de ETL adicional
-   - BI consumiu direto sem transformação
+4. **SharePoint como fonte única**
+   - Backup e disaster recovery gerenciados
+   - Permissões granulares por grupo
+   - Versionamento nativo
 
 ### O que faria diferente
 
 1. **Definir política de versionamento antes**
    - Demoramos 2 sprints para decidir quando incrementar versão
    - Causou ruído inicial no history
+   - Tivemos que fazer limpeza retroativa
 
 2. **Piloto mais longo**
    - 2 semanas foi curto, ideal seria 4 semanas
    - Algumas regras de negócio só apareceram no rollout
+   - Ajustes quebraram fluxos já configurados
 
 3. **Documentação desde o dia 1**
    - Gastamos 1 sprint inteira documentando no final
    - Deveria ter sido incremental
+   - Onboarding de novos usuários foi mais lento
+
+4. **Mais atenção aos limites do SharePoint**
+   - Esbarramos em limite de 5k itens em view
+   - Tivemos que criar índices retroativamente
+   - Causou lentidão temporária
 
 ### Próximos Passos
 
 **Curto prazo:**
-- Integração com ferramentas de mídia (API Meta, Google Ads)
-- Auto-sugestão de taxonomia (ML básico)
-- App mobile para aprovações
+- App mobile (Power Apps Mobile) para aprovações
+- Integração via API com sistemas externos
+- Auto-sugestão de taxonomia baseada em histórico
 
 **Médio prazo:**
 - Expansão para outros times (não só mídia)
 - Templates por vertical de cliente
-- Integração com CRM para enriquecimento
+- Dashboard de métricas de governança (Power BI)
+
+**Longo prazo:**
+- ML para detecção de anomalias em cadastros
+- Integração com plataformas de mídia (validação cruzada)
+- Export estruturado para sistemas analíticos
 
 ---
 
 ## Tecnologias e Ferramentas
 
 **Desenvolvimento:**
-- Power Apps (Canvas)
+- Power Apps (Canvas App)
 - Power Automate (Cloud Flows)
 - SharePoint Lists
 - Azure AD (grupos e permissões)
 
-**Integração:**
+**Comunicação:**
 - Microsoft Teams (Adaptive Cards)
-- BigQuery API (Python connector em Cloud Function)
-- Looker Studio (BI)
+- Outlook (notificações de backup)
 
 **Observabilidade:**
-- Application Insights (logs de fluxos)
-- BigQuery (auditoria)
-- Custom dashboard (Looker Studio)
+- SharePoint Views customizadas
+- Power Automate Run History
+- Logs de auditoria nativos do SharePoint
 
 ---
 
-[Voltar para Projetos](/projects/)
+[← Voltar para Projetos](/projects/)
