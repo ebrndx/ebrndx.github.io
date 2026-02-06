@@ -3,6 +3,9 @@ layout: default
 title: Home
 ---
 
+**Navegação:** [Home](/) | [Projetos](/projects/) | [Sobre](/about/) | [Contato](/contact/)
+
+---
 # Olá, eu sou Eduardo Bernardo
 
 **Data/Analytics Engineer | BI & Marketing Analytics**
