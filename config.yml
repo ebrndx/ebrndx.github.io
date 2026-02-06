@@ -1,25 +1,115 @@
-title: Eduardo Bernardo
-description: Data/Analytics Engineer | BI & Marketing Analytics | Pipelines, Modeling, Automation, Observability
-
-# Tema (usando tema nativo do GitHub Pages)
-theme: minima
-
-# Suas informações
-author:
-  name: Eduardo Bernardo
-  email: 
-
-# URLs
+# Site Settings
+title: "Eduardo Bernardo"
+title_separator: "|"
+subtitle: "Data/Analytics Engineer"
+name: "Eduardo Bernardo"
+description: "BI & Marketing Analytics | Pipelines, Modeling, Automation, Observability"
 url: "https://ebrndx.github.io"
 baseurl: ""
+repository: "ebrndx/ebrndx.github.io"
 
-# Configurações
+# Theme
+remote_theme: "mmistakes/minimal-mistakes@4.24.0"
+
+# Build settings
 markdown: kramdown
-plugins:
-  - jekyll-feed
-  - jekyll-seo-tag
+highlighter: rouge
+permalink: /:categories/:title/
+paginate: 5
+timezone: America/Sao_Paulo
 
-# Excluir do build
+# Plugins
+plugins:
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-gist
+  - jekyll-feed
+  - jekyll-include-cache
+
+# Site Author
+author:
+  name: "Eduardo Bernardo"
+  avatar: # pode adicionar depois
+  bio: "Data/Analytics Engineer | 14+ anos em BI & Marketing Analytics"
+  location: "São Paulo, Brasil"
+  links:
+    - label: "LinkedIn"
+      icon: "fab fa-fw fa-linkedin"
+      url: "https://www.linkedin.com/in/eduardobernardo/"
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/ebrndx"
+
+# Site Footer
+footer:
+  links:
+    - label: "LinkedIn"
+      icon: "fab fa-fw fa-linkedin"
+      url: "https://www.linkedin.com/in/eduardobernardo/"
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/ebrndx"
+
+# Defaults
+defaults:
+  # _posts
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: single
+      author_profile: true
+      read_time: true
+      comments: false
+      share: true
+      related: true
+  # _pages
+  - scope:
+      path: ""
+      type: pages
+    values:
+      layout: single
+      author_profile: true
+
+# Collections
+collections:
+  projects:
+    output: true
+    permalink: /:collection/:path/
+
+# Reading Files
+include:
+  - .htaccess
+  - _pages
 exclude:
+  - "*.sublime-project"
+  - "*.sublime-workspace"
+  - vendor
+  - .asset-cache
+  - .bundle
+  - .jekyll-assets-cache
+  - .sass-cache
+  - assets/js/plugins
+  - assets/js/_main.js
+  - assets/js/vendor
+  - Capfile
+  - CHANGELOG
+  - config
   - Gemfile
-  - Gemfile.lock
+  - Gruntfile.js
+  - gulpfile.js
+  - LICENSE
+  - log
+  - node_modules
+  - package.json
+  - Rakefile
+  - README
+  - tmp
+
+# Archives
+category_archive:
+  type: liquid
+  path: /categories/
+tag_archive:
+  type: liquid
+  path: /tags/
