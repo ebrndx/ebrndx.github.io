@@ -1,58 +1,70 @@
 ---
-layout: page
-title: Projetos
-subtitle: Soluções end-to-end em dados, automação e governança
+layout: home
+title: Eduardo Bernardo
+subtitle: Data/Analytics Engineer | BI & Marketing Analytics
+cover-img: 
+  - "/assets/img/header-1.jpg" : "Dados"
+  - "/assets/img/header-2.jpg" : "Analytics"
+  - "/assets/img/header-3.jpg" : "Automação"
 ---
 
-## Lexicon: Plataforma de Governança de Taxonomia
+Especializado em construir **pipelines de dados, modelagem, automação e observabilidade** para operações de mídia digital e analytics.
 
-![Lexicon](/assets/img/lexicon-preview.jpg){: .img-fluid}
-
-Plataforma low-code para padronizar nomenclaturas de campanhas, validar dados na origem e automatizar aprovações.
-
-**Stack:** Power Apps, Power Automate, SharePoint, Teams
-
-**Impacto:**
-- 85% de redução em erros de taxonomia
-- Eliminação de 12 planilhas compartilhadas
-- Tempo de aprovação: de 3 dias para 4 horas
-
-[Ver case completo →](/projects/lexicon/){: .btn .btn-success}
+14+ anos de experiência construindo soluções end-to-end: da coleta e integração de dados até dashboards operacionais, com governança e qualidade.
 
 ---
 
-## Guardião: Sistema de Alertas Automatizados
+## Stack Principal
 
-![Guardião](/assets/img/guardiao-preview.jpg){: .img-fluid}
+**Dados & Analytics**  
+BigQuery · SQL · Looker Studio · Supermetrics · ETL/ELT
 
-Extensão Chrome para monitoramento em tempo real de variações e anomalias em custo, conversões e tracking.
+**Automação & Low-Code**  
+Power Platform (Apps, Automate) · Python · APIs REST
 
-**Stack:** Chrome Extension, BigQuery, Teams
+**Governança & Observability**  
+Modelagem · Auditoria · Qualidade · Alertas automatizados
 
-**Impacto:** Detecção proativa de problemas antes de impactar resultados
+---
+
+## Projetos em Destaque
+
+### [Lexicon: Plataforma de Governança de Taxonomia](/projects/lexicon/)
+
+Plataforma low-code que reduziu erros de taxonomia em **85%** e eliminou 12 planilhas compartilhadas.
+
+**Stack:** Power Apps · Power Automate · SharePoint · Teams  
+**Impacto:** Fonte única de verdade para 50+ usuários, tempo de aprovação de 3 dias para 4 horas
+
+[Ver case completo →](/projects/lexicon/){: .btn .btn-primary}
+
+---
+
+### [Guardião: Sistema de Alertas Automatizados](/projects/guardiao/)
+
+Extensão Chrome para monitoramento em tempo real de performance e integridade de dados de mídia.
+
+**Stack:** Chrome Extension · BigQuery · Teams  
+**Impacto:** Detecção proativa de variações em custo, conversões, pacing e tracking
 
 *[Em construção]*
 
 ---
 
-## Pipeline BigQuery: Migração e Arquitetura Medallion
+### [Pipeline BigQuery: Migração e Arquitetura Medallion](/projects/pipeline-bq/)
 
-![Pipeline](/assets/img/pipeline-preview.jpg){: .img-fluid}
+Substituição de Sheets por arquitetura escalável em BigQuery com camadas Bronze/Silver/Gold.
 
-Substituição de Sheets por arquitetura escalável em BigQuery com camadas Bronze, Silver e Gold.
-
-**Stack:** BigQuery, Supermetrics, Looker Studio, Python
-
+**Stack:** BigQuery · Supermetrics · Python  
 **Impacto:** Confiabilidade, performance e escala para analytics de mídia
 
 *[Em construção]*
 
 ---
 
-## Integrações API
+## Contato
 
-Automação de coletas e integrações com plataformas de mídia (Meta, Google Ads).
+Quer conversar sobre dados, automação ou trocar ideias sobre arquitetura analítica?
 
-**Stack:** Python, APIs REST, Cloud Functions
-
-*[Em construção]*
+💼 [LinkedIn](https://www.linkedin.com/in/eduardobernardo/){: .btn .btn-primary}  
+🐙 [GitHub](https://github.com/ebrndx){: .btn}
