@@ -4,6 +4,8 @@ title: Sobre
 subtitle: Data/Analytics Engineer com 14+ anos de experiência
 ---
 
+Att. FEV/2026
+
 Olá, tudo bem? Eu sou o Eduardo.
 
 Construo soluções de ponta a ponta: da coleta e integração de dados (APIs, plataformas de mídia) até a entrega em dashboards operacionais, com governança, automação e observabilidade.
