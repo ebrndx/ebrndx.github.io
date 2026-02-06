@@ -5,7 +5,7 @@ subtitle: "Plataforma de Governança de Taxonomia"
 permalink: /projects/lexicon/
 ---
 
-[← Voltar para Projetos](/projects/)
+[← Voltar para Projetos](/projects)
 
 ---
 
@@ -61,4 +61,4 @@ A escolha por Power Platform foi pragmática: o time já operava no Microsoft 36
 
 ---
 
-[← Voltar para Projetos](/projects/)
+[← Voltar para Projetos](/projects)

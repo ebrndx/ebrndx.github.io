@@ -5,7 +5,7 @@ subtitle: "Migração e Arquitetura Medallion"
 permalink: /projects/pipeline-bq/
 ---
 
-[← Voltar para Projetos](/projects/)
+[← Voltar para Projetos](/projects)
 
 ---
 
@@ -64,4 +64,4 @@ A migração seguiu uma abordagem incremental com convivência temporária entre
 
 ---
 
-[← Voltar para Projetos](/projects/)
+[← Voltar para Projetos](/projects)

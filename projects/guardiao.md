@@ -5,7 +5,7 @@ subtitle: "Extensão Chrome para Validação de Budgets de Mídia"
 permalink: /projects/guardiao/
 ---
 
-[← Voltar para Projetos](/projects/)
+[← Voltar para Projetos](/projects)
 
 ---
 
@@ -62,4 +62,4 @@ Extensão leve que roda direto no navegador e intercepta a entrada de valores na
 
 ---
 
-[← Voltar para Projetos](/projects/)
+[← Voltar para Projetos](/projects)

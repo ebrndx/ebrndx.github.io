@@ -5,7 +5,7 @@ subtitle: "Coleta Automatizada de Dados Meta"
 permalink: /projects/graph-api/
 ---
 
-[← Voltar para Projetos](/projects/)
+[← Voltar para Projetos](/projects)
 
 ---
 
@@ -72,4 +72,4 @@ Pipeline modular com scripts dedicados por plataforma e tipo de conteúdo:
 
 ---
 
-[← Voltar para Projetos](/projects/)
+[← Voltar para Projetos](/projects)
