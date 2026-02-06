@@ -1,6 +1,8 @@
 ---
-layout: default
-title: Sobre
+layout: single
+title: "Sobre"
+permalink: /about/
+author_profile: true
 ---
 
 # Sobre mim
