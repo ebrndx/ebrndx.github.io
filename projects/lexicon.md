@@ -1,7 +1,7 @@
 ---
 layout: page
-title: "Lexicon: Plataforma de Governança de Taxonomia"
-subtitle: "85% de redução em erros e eliminação de planilhas compartilhadas"
+title: "Lexicon"
+subtitle: "Plataforma de Governança de Taxonomia"
 permalink: /projects/lexicon/
 ---
 
@@ -58,20 +58,6 @@ A escolha por Power Platform foi pragmática: o time já operava no Microsoft 36
 - ~120 horas economizadas por mês
 - Onboarding de novos analistas: de 2 semanas para 3 dias
 - Fonte única de verdade para 80+ usuários
-
----
-
-## Aprendizados
-
-**O que funcionou bem:**
-- Validação em duas camadas (UX + backend) — 92% de aprovação no primeiro envio
-- Chave canônica determinística — resolveu 90% dos problemas de duplicata
-- Aprovações via Teams — zero fricção de adoção
-
-**O que faria diferente:**
-- Definir política de versionamento desde o início
-- Piloto mais longo antes do rollout
-- Documentação incremental desde o dia 1
 
 ---
 
