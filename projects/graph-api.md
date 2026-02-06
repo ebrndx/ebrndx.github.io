@@ -1,7 +1,7 @@
 ---
 layout: page
-title: "Pipeline Graph API: Coleta Automatizada de Dados Meta"
-subtitle: "Ingestão automatizada de métricas do Facebook e Instagram via Graph API para BigQuery"
+title: "Pipeline Graph API"
+subtitle: "Coleta Automatizada de Dados Meta"
 permalink: /projects/graph-api/
 ---
 
