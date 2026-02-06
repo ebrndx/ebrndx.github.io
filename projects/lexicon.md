@@ -1,10 +1,10 @@
 ---
 layout: page
 title: "Lexicon: Plataforma de Governança de Taxonomia"
-subtitle: Redução de 85% em erros e eliminação de planilhas compartilhadas
+subtitle: "85% de redução em erros e eliminação de planilhas compartilhadas"
 ---
 
-**Navegação:** [Home](/) | [Projetos](/projects/) | [Sobre](/about/) | [Contato](/contact/)
+[← Voltar para Projetos](/projects/)
 
 ---
 
