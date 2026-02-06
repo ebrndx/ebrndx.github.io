@@ -1,7 +1,7 @@
 ---
 layout: page
-title: "Guardião: Extensão Chrome para Validação de Budgets de Mídia"
-subtitle: "Prevenção de erros de investimento em Meta Ads e Google Ads"
+title: "O Guardião"
+subtitle: "Extensão Chrome para Validação de Budgets de Mídia"
 permalink: /projects/guardiao/
 ---
 
