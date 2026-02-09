@@ -11,9 +11,9 @@ permalink: /projects/crawler-precos/
 
 ## Visão Geral
 
-**Problema:** O cliente precisava entender se seus preços eram competitivos frente ao mercado, mas não tinha visibilidade sistematizada dos preços praticados por concorrentes — nem por tipo de varejista (grandes e-commerces, lojas menores, marketplaces internacionais).
+**Problema:** O cliente não sabia se seus preços eram competitivos. Não havia comparação estruturada com o mercado, nem visão de quem estava mais barato e que tipo de concorrente era.
 
-**Solução:** Crawler em Python com Selenium headless que coleta preços do Google Shopping automaticamente, alimentando um dashboard de competitividade que cruza a base de produtos do cliente com os preços médios coletados, segmentados por tipo de varejista.
+**Solução:** Crawler em Python que coleta preços do Google Shopping automaticamente e alimenta um dashboard de competitividade, cruzando a base do cliente com preços de mercado segmentados por tipo de varejista.
 
 **Stack:** Python · Selenium · Pandas · Google Sheets (gspread) · WebDriver Manager
 
@@ -21,55 +21,37 @@ permalink: /projects/crawler-precos/
 
 ## O Problema
 
-A necessidade central era responder: **estamos competitivos ou não?**
+A pergunta central era simples: **estamos competitivos ou não?**
 
-- **Sem visão de mercado:** O cliente conhecia seus próprios preços, mas não tinha como compará-los sistematicamente com o que concorrentes praticavam
-- **Tipos de concorrente diferentes:** Um preço abaixo do seu em um grande e-commerce (Magazine Luiza, Amazon) tem peso diferente de um preço em uma loja pequena ou em um marketplace internacional como AliExpress — era preciso segmentar
-- **Decisão por produto:** Para cada SKU da base do cliente, a pergunta era: vale a pena competir nesse preço? Estamos acima ou abaixo da média? Quem está mais barato?
-- **Sem histórico:** Não havia base temporal para entender tendências de preço ou sazonalidade por concorrente
+Mas responder isso exigia contexto que não existia:
 
-O processo manual não escalava: cada consulta exigia abrir o Google Shopping, buscar o produto, copiar dados um a um e repetir para cada termo da lista.
+- O cliente conhecia seus próprios preços, mas não tinha como compará-los com o mercado de forma sistemática
+- Nem todo concorrente tem o mesmo peso — perder para a Amazon é diferente de perder para uma loja de nicho ou um marketplace internacional como AliExpress
+- Para cada produto a decisão era diferente: onde vale competir, onde há margem para subir, onde estamos perdendo venda
+- Sem histórico, não dava para entender se uma diferença de preço era pontual ou tendência
+
+O processo manual — abrir Google Shopping, buscar produto, copiar dados — não escalava para dezenas de SKUs.
 
 ---
 
 ## A Solução
 
-**Coleta automatizada (este projeto):**
+**Coleta:** Script Python com Selenium headless que lê a lista de produtos de uma Google Sheet, busca cada um no Google Shopping e extrai preço, vendedor, link e imagem. Roda sem interface gráfica, pode ser agendado.
 
-- Termos de busca lidos de uma Google Sheet (aba `list`), cada linha representando um produto do catálogo do cliente
-- Selenium headless navega ao Google Shopping, busca cada termo e extrai até 2 páginas de resultados
-- Para cada resultado: nome do produto, preço normalizado, vendedor, URL direta e imagem
-- Resultados persistidos na aba `result` da mesma planilha com timestamp por execução
+**Dashboard:** Os dados alimentavam uma visão de competitividade por produto que cruzava os preços do cliente com os preços médios coletados:
 
-**Dashboard de competitividade (consumo dos dados):**
-
-Os dados coletados alimentavam um dashboard que cruzava a base de produtos do cliente com os preços obtidos:
-
-- **Preço médio de mercado por produto:** Média dos preços coletados para cada SKU
-- **Posicionamento do cliente:** Visualização de onde o preço do cliente ficava em relação à média (acima, abaixo, alinhado)
-- **Segmentação por tipo de varejista:** Classificação dos vendedores em categorias — grande e-commerce, loja pequena/nicho, marketplace internacional — para entender contra quem se estava competindo
-- **Análise de oportunidade:** Destaque dos produtos onde o cliente era mais barato (oportunidade de margem) e onde era mais caro (risco de perda de venda)
-
----
-
-## Destaques Técnicos
-
-- **Headless:** Execução sem interface gráfica, viabilizando uso em servidores e agendamento
-- **Normalização de preço:** Tratamento de formato brasileiro (R$ 1.299,00) para float numérico
-- **URL decoding:** Decodificação de URLs de redirect do Google Shopping para obter link direto do vendedor
-- **Paginação automática:** Navega para segunda página de resultados quando disponível
-- **WebDriver Manager:** Gerenciamento automático do ChromeDriver, sem necessidade de download manual
-- **Resiliência:** Tratamento de exceções por item — falha em um produto não interrompe a coleta dos demais
+- Posicionamento por produto — acima, abaixo ou alinhado com a média de mercado
+- Segmentação por tipo de varejista — grande e-commerce, loja pequena/nicho, marketplace internacional
+- Destaque de oportunidades — onde o cliente era mais barato (margem para subir) e onde era mais caro (risco de perda de venda)
 
 ---
 
 ## Resultados
 
-- Visão clara de competitividade por produto, respondendo onde o cliente estava acima ou abaixo do mercado
-- Segmentação de concorrentes por tipo de varejista, permitindo decisões mais qualificadas sobre posicionamento
-- Base histórica de preços com timestamp para análise de tendências e sazonalidade
-- Eliminação do processo manual de consulta, substituído por coleta automatizada e dashboard consolidado
-- Dados acionáveis para equipes de e-commerce e pricing ajustarem estratégia por produto
+- Visão clara de competitividade por produto, algo que não existia antes
+- Decisões de pricing passaram a considerar o tipo de concorrente, não apenas o preço absoluto
+- Base histórica com timestamp para acompanhar tendências e sazonalidade
+- Processo manual eliminado — coleta automatizada e dashboard consolidado
 
 ---
 
