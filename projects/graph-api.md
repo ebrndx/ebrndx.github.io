@@ -41,8 +41,9 @@ Dois pipelines construídos no mesmo padrão — Apps Script consumindo API, Big
 - Paginação cursor-based para contas com 1000+ mídias
 
 **AppsFlyer:**
-- Eventos de conversão (purchases, registros, ativações) e métricas de instalação (cost, clicks, installs, sessions) por campanha, adset e ad
-- Janela com lag de 2 dias e lookback de 14 dias para capturar atribuições tardias
+- Pipelines replicados para múltiplos clientes e endpoints: métricas agregadas (Master API), dados raw de conversão e detecção de fraude (Protect360), cada um com seu dataset e configuração
+- Eventos de conversão (purchases, registros, ativações), métricas de instalação (cost, clicks, installs, sessions) e dados de fraude pós-atribuição — tudo por campanha, adset e ad
+- Janela com lag e lookback configuráveis por cliente para capturar atribuições tardias
 - O script se adapta sozinho quando a API muda nomes de colunas entre versões
 
 **Padrão comum:**
@@ -58,6 +59,7 @@ Dois pipelines construídos no mesmo padrão — Apps Script consumindo API, Big
 - Conectores pagos eliminados — coleta própria com controle total sobre métricas e granularidade
 - Exportações manuais substituídas por execução diária automática
 - Cruzamento de mídia + atribuição viabilizado pela primeira vez no mesmo warehouse
+- Padrão AppsFlyer escalado para múltiplos clientes e tipos de dados (agregados, raw, fraude) sem reescrever o pipeline do zero
 
 ---
 
