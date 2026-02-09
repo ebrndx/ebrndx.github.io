@@ -45,3 +45,14 @@ Pipeline em Google Apps Script que coleta métricas detalhadas de Facebook Pages
 **Impacto:** Coleta automatizada de 50+ métricas por publicação, substituindo exportações manuais
 
 [Ver case completo →](/projects/graph-api/){: .btn .btn-primary}
+
+---
+
+## [Crawler de Precos: Inteligencia de Competitividade](/projects/crawler-precos/)
+
+Crawler Python que coleta precos do Google Shopping e alimenta dashboard de competitividade, cruzando base do cliente com precos de mercado segmentados por tipo de varejista.
+
+**Stack:** Python · Selenium · Pandas · Google Sheets (gspread)
+**Impacto:** Visao por produto de onde o cliente era mais barato ou caro vs. grandes e-commerces, lojas menores e marketplaces internacionais
+
+[Ver case completo →](/projects/crawler-precos/){: .btn .btn-primary}
