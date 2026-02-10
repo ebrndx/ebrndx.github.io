@@ -28,16 +28,42 @@ Modelagem · Auditoria · Qualidade · Alertas automatizados
 
 ## Projetos
 
-[Lexicon](/projects/lexicon/) — Governança de taxonomia que reduziu erros em 85% e eliminou planilhas compartilhadas.
+### **Lexicon**
+Governança de taxonomia que reduziu erros em 85% e eliminou planilhas compartilhadas.
 
-[Guardião](/projects/guardiao/) — Extensão Chrome que zerou erros de budget em Meta Ads e Google Ads.
+[Ver case completo →](/projects/lexicon/){: .btn .btn-primary}
 
-[Pipeline BigQuery](/projects/pipeline-bq/) — Migração de Sheets para arquitetura medallion em BigQuery.
+---
 
-[Integração de APIs](/projects/graph-api/) — Pipelines Meta Graph API e AppsFlyer direto no BigQuery.
+### **Guardião**
+Extensão Chrome que zerou erros de budget em Meta Ads e Google Ads.
 
-[Crawler de Preços](/projects/crawler-precos/) — Coleta de preços do Google Shopping para dashboard de competitividade.
+[Ver case completo →](/projects/guardiao/){: .btn .btn-primary}
 
-[Notifika](/projects/notifika/) — Alertas diários de pacing de mídia por e-mail com severidade por frente.
+---
 
-[Ver todos os projetos →](/projects){: .btn .btn-primary}
+### **Pipeline BigQuery**
+Migração de Sheets para arquitetura medallion em BigQuery.
+
+[Ver case completo →](/projects/pipeline-bq/){: .btn .btn-primary}
+
+---
+
+### **Integração de APIs**
+Pipelines Meta Graph API e AppsFlyer direto no BigQuery.
+
+[Ver case completo →](/projects/graph-api/){: .btn .btn-primary}
+
+---
+
+### **Crawler de Preços**
+Coleta de preços do Google Shopping para dashboard de competitividade.
+
+[Ver case completo →](/projects/crawler-precos/){: .btn .btn-primary}
+
+---
+
+### **Notifika**
+Alertas diários de pacing de mídia por e-mail com severidade por frente.
+
+[Ver case completo →](/projects/notifika/){: .btn .btn-primary}
